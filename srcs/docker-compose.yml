@@ -2,39 +2,55 @@
 
 services:
     mariadb:
+        container_name: mariadb
         build: ./requirements/mariadb/
         expose:
             - "3306"
         networks:
             - intra
+        volumes:
+            - mariadb:/var/lib/mysql
         env_file:
           - ../srcs/.env
-    # nginx:
-    #     build: ./requirements/nginx/
-    #     restart: always
-    #     ports:
-    #         - "443:443"
-    #     volumes:
-    #         - data:/var/www/html
-    #     networks:
-    #         - intra
-    #     depends_on:
-    #         - mariadb
-    # wordpress:
-    #     build: ./requirements/wordpress/
-    #     restart: always
-    #     volumes:
-    #         - data:/var/www/html
-    #     expose: 
-    #         - "9000"
-    #     networks:
-    #         - intra
-    #     depends_on:
-    #         - nginx
+    nginx:
+        container_name: nginx
+        build: ./requirements/nginx/
+        ports:
+            - "443:443"
+        volumes:
+            - wordpress:/var/www/html
+        networks:
+            - intra
+        depends_on:
+            - wordpress
+    wordpress:
+        container_name: wordpress
+        build: ./requirements/wordpress/
+        volumes:
+            - wordpress:/var/www/html
+        expose: 
+            - "9000"
+        networks:
+            - intra
+        depends_on:
+            - mariadb
 
 networks:
     intra:
-        driver: bridge
+      driver: bridge
 
 volumes:
-    data: {}
+    mariadb:
+      name: mariadb
+      driver: local
+      driver_opts:
+        type: none
+        device: /Users/gon/Desktop/test/mariadb
+        o: bind
+    wordpress:
+      name: wordpress
+      driver: local
+      driver_opts:
+        type: none
+        device: /Users/gon/Desktop/test/wordpress
+        o: bind
