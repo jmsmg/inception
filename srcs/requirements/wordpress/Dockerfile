@@ -9,7 +9,7 @@ RUN	apt-get -y install \
 	php-mysql
 
 COPY ./tools/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-# COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
