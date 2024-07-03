@@ -7,11 +7,11 @@ services:
         expose:
             - "3306"
         networks:
-            - intra
+            - seonggoc
         volumes:
             - mariadb:/var/lib/mysql
         env_file:
-          - ../srcs/.env
+          - .env
     nginx:
         container_name: nginx
         build: ./requirements/nginx/
@@ -20,7 +20,7 @@ services:
         volumes:
             - wordpress:/var/www/html
         networks:
-            - intra
+            - seonggoc
         depends_on:
             - wordpress
     wordpress:
@@ -31,12 +31,12 @@ services:
         expose: 
             - "9000"
         networks:
-            - intra
+            - seonggoc
         depends_on:
             - mariadb
 
 networks:
-    intra:
+    seonggoc:
       driver: bridge
 
 volumes:
@@ -45,12 +45,13 @@ volumes:
       driver: local
       driver_opts:
         type: none
-        device: /Users/gon/Desktop/test/mariadb
+        device: /home/seonggoc/data/mariadb
         o: bind
+
     wordpress:
       name: wordpress
       driver: local
       driver_opts:
         type: none
-        device: /Users/gon/Desktop/test/wordpress
+        device: /home/seonggoc/data/wordpress
         o: bind

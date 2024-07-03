@@ -1,20 +1,21 @@
-COMPOSE = docker-compose 
-FLAG = up --build -d
-VOLUME = 
-# %.o: %.cpp
-# 	$(CC) $(FLAG)
+all:
+	cd srcs && sudo docker-compose up --build -d
 
-$(NAME):
-	$(COMPOSE) $(FLAG)
-
-all: $(NAME)
-
-clean:
-	rm -f $(OBJS)
+clean :
+	cd srcs && sudo docker-compose down --rmi all
 
 fclean: clean
-	rm -f $(NAME)
+	sudo rm -rf /home/seonggoc/data/mariadb/*
+	sudo rm -rf /home/seonggoc/data/wordpress/*
 
-re: flcean all
+ps:
+	cd srcs && sudo docker-compose ps
 
-.PHONY: all clean fclean re
+mariadb:
+	sudo docker exec -it mariadb /bin/bash
+
+nginx:
+	sudo docker exec -it nginx /bin/bash
+
+wordpress:
+	sudo docker exec -it wordpress /bin/bash
