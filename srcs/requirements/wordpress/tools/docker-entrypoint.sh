@@ -18,5 +18,3 @@ wp user create seonggoc jmsmg1@me.com --role=author --user_pass=123123 --allow-r
 /etc/init.d/php7.4-fpm stop
 
 php-fpm7.4 -F
-
-# tail -f
