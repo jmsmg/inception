@@ -12,3 +12,5 @@ RUN	chmod +x /usr/local/bin/docker-entrypoint.sh
 COPY    ./conf/default /etc/nginx/sites-available/default
 
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+
+# EXPOSE 443:443

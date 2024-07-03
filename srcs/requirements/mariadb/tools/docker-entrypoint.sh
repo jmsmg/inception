@@ -12,4 +12,8 @@ mysql -e "FLUSH PRIVILEGES;"
 
 service mariadb stop
 
+# chmod +x /usr/sbin/mariadbd 
+# chmod -R 777 /var/lib/mysql
+# rm -f /var/lib/mysql/aria_log_control*
+
 /usr/sbin/mariadbd --basedir=/usr --datadir=/var/lib/mysql --plugin-dir=/usr/lib/mysql/plugin --user=mysql --skip-log-error --pid-file=/run/mysqld/mysqld.pid --socket=/run/mysqld/mysqld.sock --bind-address=0.0.0.0
