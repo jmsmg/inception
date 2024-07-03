@@ -2,11 +2,13 @@ all:
 	cd srcs && sudo docker-compose up --build -d
 
 clean :
-	cd srcs && sudo docker-compose down --rmi all
+	cd srcs && sudo docker-compose down --rmi all -v
 
 fclean: clean
 	sudo rm -rf /home/seonggoc/data/mariadb/*
 	sudo rm -rf /home/seonggoc/data/wordpress/*
+
+re: fclean all
 
 ps:
 	cd srcs && sudo docker-compose ps
